@@ -14,9 +14,9 @@ docker run -d -e SWAGGER_URL=http://localhost \
 
 # Run performance test
 ```
-locust -f tests/petstore.py --master --headless -u 1 -r 1
+locust -f tests/performance/petstore.py --master --headless -u 1 -r 1
 ```
 
 ```
-locust -f tests/petstore.py --worker --master-host=localhost
+locust -f tests/performance/petstore.py --worker --master-host=localhost
 ```
