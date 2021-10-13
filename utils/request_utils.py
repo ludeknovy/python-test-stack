@@ -34,3 +34,7 @@ def log_round_trip(response, *args, **kwargs):
     logger.debug(f'{format_round_trip(response)}')
 
 
+def schemathesis_case_kwargs_update(kwargs):
+    del kwargs['url']
+    del kwargs['method']
+    return kwargs
