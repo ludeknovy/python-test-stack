@@ -43,7 +43,11 @@ def file_logger(request):
         time_info = datetime.fromtimestamp(time()).strftime('%Y-%m-%d__%H-%M-%S')
 
         if not os.path.exists("logs"):
-            os.makedirs("logs")
+            try:
+                os.makedirs("logs")
+            except OSError:
+                logging.error("logs folder was not created")
+                pass
         file_handler = logging.FileHandler(f'logs/{test_name}__{time_info}.log')
         file_handler.setLevel(logging.DEBUG)
         logger.addHandler(file_handler)
