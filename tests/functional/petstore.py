@@ -39,8 +39,5 @@ def test_get_unexisting_user(api_tester: ApiTester):
 @settings(deadline=None, suppress_health_check=[HealthCheck.function_scoped_fixture])
 @schema.parametrize(method="GET", endpoint="/v3/user/{username}[^/]*$")
 def test_get_user_no_server_errors(case, api_tester: ApiTester):
-    kwargs = case.as_requests_kwargs("")
-    user_id = kwargs['url'].rsplit('/', 1)[1]
-    kwargs = schemathesis_case_kwargs_update(kwargs)
-    response = api_tester.users.get_user(user_id, **kwargs)
+    response = api_tester.users.request(**case.as_requests_kwargs())
     assert_that(response, not_(returned_status_code(500)))

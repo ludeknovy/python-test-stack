@@ -22,3 +22,6 @@ class BaseEndpoint(object):
 
     def delete(self, url: str, **kwargs) -> Response:
         return self._client.delete(url, **kwargs)
+
+    def request(self, **kwargs):
+        return self._client.request(**kwargs)
