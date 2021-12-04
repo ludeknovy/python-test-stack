@@ -8,7 +8,7 @@ fake = Faker()
 
 class User(HttpUser):
     wait_time = between(0, 0)
-    host = "http://localhost"
+    host = "http://localhost:80"
 
     def on_start(self):
         self.api_tester = ApiTester(client=self.client)
