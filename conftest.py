@@ -11,13 +11,13 @@ from endpoints.api_tester import ApiTester  # type: ignore
 logger = logging.getLogger("test-logger")
 logger.setLevel(logging.DEBUG)
 
+@pytest.fixture()
+def x_test_id(request):
+    # UUID used for request(s) tracing
+    return str(uuid.uuid4())
 
 @pytest.fixture()
-def api_tester(request):
-    # UUID used for request(s) tracing
-    global x_test_id
-    x_test_id = str(uuid.uuid4())
-
+def api_tester(request, x_test_id):
     return ApiTester(x_test_id=x_test_id)
 
 
@@ -58,7 +58,8 @@ def file_logger(request):
 
 
 def pytest_exception_interact(node, call, report):
-    if 'x_test_id' in globals():
+    x_test_id = node._request.getfixturevalue("x_test_id")
+    if x_test_id:
         debug_id_str = F'debug id: {x_test_id}'
         # This is only for local console output - for some reason ReportPortal does not log it
         report.longrepr.chain[0][0].extraline = f"\n{debug_id_str}"
