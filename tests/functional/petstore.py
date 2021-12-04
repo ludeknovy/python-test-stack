@@ -6,9 +6,8 @@ from hamcrest import assert_that, not_
 
 from endpoints.api_tester import ApiTester
 from utils.matchers.status_code_matcher import returned_status_code
-from utils.request_utils import schemathesis_case_kwargs_update
 
-schema = schemathesis.from_uri("http://localhost/v3/swagger.json")
+schema = schemathesis.from_uri("http://localhost:80/v3/swagger.json")
 
 
 def test_create_user(api_tester: ApiTester):
